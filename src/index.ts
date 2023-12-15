@@ -54,7 +54,7 @@ export async function main() {
     {
       username: REPO_USERNAME,
       stars: Object.entries(compactedByLanguage),
-      recentStars: Object.entries(recentStars),
+      recentStars: recentStars,
       updatedAt: Date.now(),
     },
     template
