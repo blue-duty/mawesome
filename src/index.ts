@@ -14,6 +14,7 @@ import {
   MARKDOWN_FILENAME,
 } from './helpers';
 import git from './git';
+import { ParsedStarsList } from 'gh-star-fetch/types/types';
 
 export async function main() {
   // set default template
@@ -40,10 +41,20 @@ export async function main() {
   const files = [];
 
   const compactedByLanguage = compactByLanguage(results);
+
+  // 获取近七天的star
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  const recentStars = (results as ParsedStarsList).filter((star) => {
+    const starTime = new Date(star.starred_at?.toString() || '');
+    return starTime > sevenDaysAgo;
+  });
+
   const byLanguage = await renderer(
     {
       username: REPO_USERNAME,
       stars: Object.entries(compactedByLanguage),
+      recentStars: recentStars,
       updatedAt: Date.now(),
     },
     template
