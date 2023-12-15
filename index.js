@@ -7007,7 +7007,7 @@ function rand(min, max) {
 }
 const DEFAULT_OPTIONS = {
     prefixUrl: 'https://api.github.com',
-    responseType: 'json',
+    responseType: 'application/vnd.github.star+json',
     hooks: {
         beforeRequest: [
             async () => {
