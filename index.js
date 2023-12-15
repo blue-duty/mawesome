@@ -13873,7 +13873,7 @@ function main() {
         const byLanguage = yield (0, helpers_1.renderer)({
             username: helpers_1.REPO_USERNAME,
             stars: Object.entries(compactedByLanguage),
-            recentStars: recentStars,
+            recents: recentStars,
             updatedAt: Date.now(),
         }, template);
         files.push({
