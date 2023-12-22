@@ -7102,7 +7102,7 @@ function compactByTopic(data, _transform = transform) {
 exports.compactByTopic = compactByTopic;
 async function apiGetStar(opts) {
     const data = [];
-    const API_STARRED_URL = `users/starred`;
+    const API_STARRED_URL = `user/starred`;
     for await (const star of paginateStars(API_STARRED_URL, opts)) {
         data.push(star);
     }
