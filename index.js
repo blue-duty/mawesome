@@ -556,8 +556,8 @@ class OidcClient {
             const res = yield httpclient
                 .getJson(id_token_url)
                 .catch(error => {
-                throw new Error(`Failed to get ID Token. \n 
-        Error Code : ${error.statusCode}\n 
+                throw new Error(`Failed to get ID Token. \n
+        Error Code : ${error.statusCode}\n
         Error Message: ${error.message}`);
             });
             const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
@@ -7007,7 +7007,7 @@ function rand(min, max) {
 }
 const DEFAULT_OPTIONS = {
     prefixUrl: 'https://api.github.com',
-    responseType: 'application/vnd.github.star+json',
+    responseType: 'json',
     hooks: {
         beforeRequest: [
             async () => {
@@ -7101,7 +7101,7 @@ function compactByTopic(data, _transform = transform) {
 exports.compactByTopic = compactByTopic;
 async function apiGetStar(opts) {
     const data = [];
-    const API_STARRED_URL = `users/${opts.username}/starred`;
+    const API_STARRED_URL = `users/starred`;
     for await (const star of paginateStars(API_STARRED_URL, opts)) {
         data.push(star);
     }
@@ -7142,6 +7142,7 @@ function transform(star) {
         watchers_count: star.watchers_count,
         language: star.language,
         topics: star.topics,
+        starred_at: star.starred_at,
     };
 }
 const DEFAULT_OPTIONS = {
@@ -7158,6 +7159,7 @@ function setHttpClient(opts) {
     const headers = {};
     if (opts.accessToken) {
         headers.Authorization = `token ${opts.accessToken}`;
+        headers.Accept = "application/vnd.github.star+json"
     }
     return (0, client_1.createClient)({ headers });
 }
@@ -7167,15 +7169,15 @@ async function main(options) {
     const opts = Object.assign({}, DEFAULT_OPTIONS, options, {
         http,
     });
-    if (!opts.username) {
-        try {
-            const { login } = await http.get('user').json();
-            opts.username = login;
-        }
-        catch {
-            throw new Error('[options.username] is not set');
-        }
-    }
+    // if (!opts.username) {
+    //     try {
+    //         const { login } = await http.get('user').json();
+    //         opts.username = login;
+    //     }
+    //     catch {
+    //         throw new Error('[options.username] is not set');
+    //     }
+    // }
     return apiGetStar(opts);
 }
 exports["default"] = main;
@@ -10094,7 +10096,7 @@ const understoodStatuses = new Set([
 const errorStatusCodes = new Set([
     500,
     502,
-    503, 
+    503,
     504,
 ]);
 
@@ -12337,7 +12339,7 @@ exports.parse = function (s) {
       if(/^:base64:/.test(value))
         return Buffer.from(value.substring(8), 'base64')
       else
-        return /^:/.test(value) ? value.substring(1) : value 
+        return /^:/.test(value) ? value.substring(1) : value
     }
     return value
   })
@@ -12886,7 +12888,7 @@ function parseLink(link) {
 
     var info = parts
       .reduce(createObjects, {});
-    
+
     info = xtend(qry, info);
     info.url = linkUrl;
     return info;
@@ -29412,7 +29414,7 @@ module.exports = {"i8":"3.1.9"};
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -29426,7 +29428,7 @@ module.exports = {"i8":"3.1.9"};
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		var threw = true;
 /******/ 		try {
@@ -29435,11 +29437,11 @@ module.exports = {"i8":"3.1.9"};
 /******/ 		} finally {
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 		}
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -29452,12 +29454,12 @@ module.exports = {"i8":"3.1.9"};
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -29468,18 +29470,18 @@ module.exports = {"i8":"3.1.9"};
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/compat */
-/******/ 	
+/******/
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
-/******/ 	
+/******/
 /************************************************************************/
-/******/ 	
+/******/
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __nccwpck_require__(6144);
 /******/ 	module.exports = __webpack_exports__;
-/******/ 	
+/******/
 /******/ })()
 ;
