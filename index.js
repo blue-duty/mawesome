@@ -7048,6 +7048,7 @@ function getNextPage({ next, last }) {
 exports.getNextPage = getNextPage;
 async function* paginateStars(url, opts) {
     let nextPage = '1';
+    console.log(opts.http.options)
     while (nextPage) {
         try {
             const { headers, body } = await opts.http.get(url, {
